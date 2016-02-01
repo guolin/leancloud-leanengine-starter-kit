@@ -6,7 +6,13 @@ var AV = require('leanengine');
 var cloud = require('./cloud');
 var app = express();
 
-app.use('/', express.static('public'));
+var pang = require('./routes/pang');
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// app.use('/', express.static('public'));
 
 // 加载云代码方法
 app.use(cloud);
@@ -20,8 +26,9 @@ app.use(AV.Cloud.HttpsRedirect());
 
 app.use(methodOverride('_method'))
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/pang',pang);
 
 // 如果任何路由都没匹配到，则认为 404
 // 生成一个异常让后面的 err handler 捕获

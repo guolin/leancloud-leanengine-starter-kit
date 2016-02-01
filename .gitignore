@@ -1,5 +1,7 @@
 .avoscloud/
 
+.idea/
+
 # Logs
 logs
 *.log
